@@ -5,5 +5,6 @@ namespace HomeWork30APITest.ApiTests.ReqresAPIModels.Models.Response
     {
         public required int Id { get; set; }
         public required string Token { get; set; }
+        public required string Error { get; set; }
     }
 }

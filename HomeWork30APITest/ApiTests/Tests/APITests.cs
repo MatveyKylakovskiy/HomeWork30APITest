@@ -212,17 +212,110 @@ namespace HomeWork30APITest.ApiTests.Tests
         }
 
         [Test]
-        [DisplayName("Delete user")]
-        public void DeleteMethodTest10()
+        [DisplayName("Register user positive")]
+        public void PostMethodTest11()
         {
+            var jsonReq = new RegisterUserBuilder()
+                .Email("eve.holt@reqres.in")
+                .Password("pistol")
+                .Build();
 
-            var deleteMethodObj = new MethodDELETE();
-            deleteMethodObj.SendDeleteMethod("users/2", client);
+            var postMethodObj = new MethodPOST();
+            postMethodObj.SendPostMethod("register", client, jsonReq);
 
-            var statusCode = deleteMethodObj.ReturnStatusCode();
+            var statusCode = postMethodObj.ReturnStatusCode();
+
+            RegisterResponse userData = postMethodObj.ReturnJsonContent<RegisterResponse>();
 
             //Проверка статуса ответа
-            Assert.That(statusCode, Is.EqualTo(204), "status code is not 204");
+            Assert.That(statusCode, Is.EqualTo(200), "status code is not 200");
+
+            Assert.That(userData.Id, Is.EqualTo(4));
+            Assert.That(userData.Token, Is.EqualTo("QpwL5tke4Pnpja7X4"));
+        }
+
+        [Test]
+        [DisplayName("Register user negative")]
+        public void PostMethodTest12()
+        {
+            var jsonReq = new RegisterUserBuilder()
+                .Email("eve.holt@reqres.in")
+                .Build();
+
+            var postMethodObj = new MethodPOST();
+            postMethodObj.SendPostMethod("register", client, jsonReq);
+
+            var statusCode = postMethodObj.ReturnStatusCode();
+
+            RegisterResponse userData = postMethodObj.ReturnJsonContent<RegisterResponse>();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(400), "status code is not 400");
+
+            Assert.That(userData.Error, Is.EqualTo("Missing password"));
+        }
+
+        [Test]
+        [DisplayName("Login user positive")]
+        public void PostMethodTest13()
+        {
+            var jsonReq = new RegisterUserBuilder()
+                .Email("eve.holt@reqres.in")
+                .Password("cityslicka")
+                .Build();
+
+            var postMethodObj = new MethodPOST();
+            postMethodObj.SendPostMethod("login", client, jsonReq);
+
+            var statusCode = postMethodObj.ReturnStatusCode();
+
+            RegisterResponse userData = postMethodObj.ReturnJsonContent<RegisterResponse>();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(200), "status code is not 200");
+
+            Assert.That(userData.Token, Is.EqualTo("QpwL5tke4Pnpja7X4"));
+        }
+
+        [Test]
+        [DisplayName("Login user negative")]
+        public void PostMethodTest14()
+        {
+            var jsonReq = new RegisterUserBuilder()
+                .Email("peter@klaven")
+                .Build();
+
+            var postMethodObj = new MethodPOST();
+            postMethodObj.SendPostMethod("login", client, jsonReq);
+
+            var statusCode = postMethodObj.ReturnStatusCode();
+
+            RegisterResponse userData = postMethodObj.ReturnJsonContent<RegisterResponse>();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(400), "status code is not 400");
+
+            Assert.That(userData.Error, Is.EqualTo("Missing password"));
+        }
+
+        [Test]
+        [DisplayName("get with delay")]
+        public void GetMethodTest15()
+        {
+            var getMethodObj = new MethodGET();
+            getMethodObj.SendGetMethod("users?delay=3", client);
+
+            ListOfUsersModel listOfUsers = getMethodObj.ReturnJsonContent<ListOfUsersModel>();
+            var statusCode = getMethodObj.ReturnStatusCode();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(200), "status code is not 200");
+
+            //Проверка данных
+            Assert.That(listOfUsers.Users[0].id, Is.EqualTo(1));
+            Assert.That(listOfUsers.Users[1].First_Name, Is.EqualTo("Janet"));
+            Assert.That(listOfUsers.Users[2].Email, Is.EqualTo("emma.wong@reqres.in"));
+            Assert.That(listOfUsers.Users[3].Last_Name, Is.EqualTo("Holt"));
         }
     }
 }
