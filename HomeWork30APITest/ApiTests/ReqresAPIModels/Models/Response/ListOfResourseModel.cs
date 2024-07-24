@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace HomeWork30APITest.ApiTests.ReqresAPIModels.Models.Response
 {
-    public class ResourseModel
+    public class ListOfResourseModel
     {
         [JsonProperty("data")]
         public List<ResourseItem> Items { get; set; }

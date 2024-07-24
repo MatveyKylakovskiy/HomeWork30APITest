@@ -74,7 +74,7 @@ namespace HomeWork30APITest.ApiTests.Tests
             var getMethodObj = new MethodGET();
             getMethodObj.SendGetMethod("unknown", client);
 
-            ResourseModel singleResourse = getMethodObj.ReturnJsonContent<ResourseModel>();
+            ListOfResourseModel singleResourse = getMethodObj.ReturnJsonContent<ListOfResourseModel>();
             var statusCode = getMethodObj.ReturnStatusCode();
 
             //Проверка статуса ответа
@@ -88,6 +88,26 @@ namespace HomeWork30APITest.ApiTests.Tests
             Assert.That(singleResourse.Items[4].PantoneValue, Is.EqualTo("17-1456"));
         }
 
+        [Test]
+        [DisplayName("Get single <RESOURCE>")]
+        public void GetMethodTest5()
+        {
 
+            var getMethodObj = new MethodGET();
+            getMethodObj.SendGetMethod("unknown/2", client);
+
+            SingleResourseModel singleResourse = getMethodObj.ReturnJsonContent<SingleResourseModel>();
+            var statusCode = getMethodObj.ReturnStatusCode();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(200), "status code is not 200");
+
+            //Проверка данных
+            Assert.That(singleResourse.data.id, Is.EqualTo(2));
+            Assert.That(singleResourse.data.name, Is.EqualTo("fuchsia rose"));
+            Assert.That(singleResourse.data.year, Is.EqualTo(2001));
+            Assert.That(singleResourse.data.color, Is.EqualTo("#C74375"));
+            Assert.That(singleResourse.data.pantone_value, Is.EqualTo("17-2031"));
+        }
     }
 }

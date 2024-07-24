@@ -1,5 +1,4 @@
 ﻿
-using Newtonsoft.Json;
 
 namespace HomeWork30APITest.ApiTests.ReqresAPIModels.Models.Response
 {
