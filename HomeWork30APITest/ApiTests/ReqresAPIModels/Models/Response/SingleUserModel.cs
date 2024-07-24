@@ -6,17 +6,15 @@ namespace HomeWork30APITest.ApiTests.ReqresAPIModels.Models.Response
 
     public class SingleUserModel
     {
-        [JsonProperty("data.id")]
-        public required int id { get; set; }
 
-        [JsonProperty("data.email")]
-        public required string Email { get; set; }
+        public UserData data { get; set; }
 
-        [JsonProperty("data.first_name")]
-        public required string First_Name { get; set; }
-
-        [JsonProperty("data.last_name")]
-        public required string Last_Name { get; set; }
-
+        public class UserData
+        {
+            public int id { get; set; }
+            public string email { get; set; }
+            public string first_name { get; set; }
+            public string last_name { get; set; }
+        }
     }
 }

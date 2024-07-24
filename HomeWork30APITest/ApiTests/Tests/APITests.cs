@@ -4,13 +4,14 @@ using HomeWork30APITest.ApiTests.ReqresAPIModels.Models.Response;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using System.ComponentModel;
 
 namespace HomeWork30APITest.ApiTests.Tests
 {
     public class Tests : BaseAPITest
     {
         [Test]
-        [Description("Get List of Users")]
+        [DisplayName("Get List of Users")]
         public void GetMethodTest1()
         {
 
@@ -31,7 +32,7 @@ namespace HomeWork30APITest.ApiTests.Tests
         }
 
         [Test]
-        [Description("Get single User")]
+        [DisplayName("Get single User")]
         public void GetMethodTest2()
         {
 
@@ -45,10 +46,24 @@ namespace HomeWork30APITest.ApiTests.Tests
             Assert.That(statusCode, Is.EqualTo(200), "status code is not 200");
 
             //Проверка данных
-            Assert.That(singleUser.id, Is.EqualTo(2));
-            Assert.That(singleUser.First_Name, Is.EqualTo("Janet"));
-            Assert.That(singleUser.Email, Is.EqualTo("janet.weaver@reqres.in"));
-            Assert.That(singleUser.Last_Name, Is.EqualTo("Weaver"));
+            Assert.That(singleUser.data.id, Is.EqualTo(2));
+            Assert.That(singleUser.data.first_name, Is.EqualTo("Janet"));
+            Assert.That(singleUser.data.email, Is.EqualTo("janet.weaver@reqres.in"));
+            Assert.That(singleUser.data.last_name, Is.EqualTo("Weaver"));
+        }
+
+        [Test]
+        [DisplayName("Single User not found")]
+        public void GetMethodTest3()
+        {
+
+            var getMethodObj = new MethodGET();
+            getMethodObj.SendGetMethod("users/23", client);
+
+            var statusCode = getMethodObj.ReturnStatusCode();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(404), "status code is not 404");
         }
     }
 }
