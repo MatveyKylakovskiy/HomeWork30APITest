@@ -65,5 +65,29 @@ namespace HomeWork30APITest.ApiTests.Tests
             //Проверка статуса ответа
             Assert.That(statusCode, Is.EqualTo(404), "status code is not 404");
         }
+
+        [Test]
+        [DisplayName("Get LIST <RESOURCE>")]
+        public void GetMethodTest4()
+        {
+
+            var getMethodObj = new MethodGET();
+            getMethodObj.SendGetMethod("unknown", client);
+
+            ResourseModel singleResourse = getMethodObj.ReturnJsonContent<ResourseModel>();
+            var statusCode = getMethodObj.ReturnStatusCode();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(200), "status code is not 200");
+
+            //Проверка данных
+            Assert.That(singleResourse.Items[0].id, Is.EqualTo(1));
+            Assert.That(singleResourse.Items[1].Name, Is.EqualTo("fuchsia rose"));
+            Assert.That(singleResourse.Items[2].Color, Is.EqualTo("#BF1932"));
+            Assert.That(singleResourse.Items[3].Year, Is.EqualTo(2003));
+            Assert.That(singleResourse.Items[4].PantoneValue, Is.EqualTo("17-1456"));
+        }
+
+
     }
 }
