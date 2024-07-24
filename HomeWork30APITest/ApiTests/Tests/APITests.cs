@@ -109,5 +109,19 @@ namespace HomeWork30APITest.ApiTests.Tests
             Assert.That(singleResourse.data.color, Is.EqualTo("#C74375"));
             Assert.That(singleResourse.data.pantone_value, Is.EqualTo("17-2031"));
         }
+
+        [Test]
+        [DisplayName("Single Resourse not found")]
+        public void GetMethodTest6()
+        {
+
+            var getMethodObj = new MethodGET();
+            getMethodObj.SendGetMethod("unknown/23", client);
+
+            var statusCode = getMethodObj.ReturnStatusCode();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(404), "status code is not 404");
+        }
     }
 }
