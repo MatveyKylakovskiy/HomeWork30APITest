@@ -2,9 +2,6 @@ using HomeWork30APITest.ApiTests.ApiMethotds;
 using HomeWork30APITest.ApiTests.ReqresAPI.Models.Response;
 using HomeWork30APITest.ApiTests.ReqresAPIModels.Builders;
 using HomeWork30APITest.ApiTests.ReqresAPIModels.Models.Response;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RestSharp;
 using System.ComponentModel;
 
 namespace HomeWork30APITest.ApiTests.Tests

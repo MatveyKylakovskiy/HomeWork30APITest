@@ -7,7 +7,6 @@ namespace HomeWork30APITest.ApiTests.Tests
     {
         private const string BaseUrl = "https://reqres.in/api/";
         public RestClient client;
-        public BaseMethod Response;
 
         [SetUp]
         public void Setup()
