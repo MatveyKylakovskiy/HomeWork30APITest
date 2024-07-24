@@ -7,8 +7,8 @@ namespace HomeWork30APITest.ApiTests.ApiMethotds
 {
     public abstract class BaseMethod
     {
-        private static RestRequest _request;
-        private static RestResponse _response;
+        public RestRequest _request;
+        public RestResponse _response;
 
         private protected BaseMethod CreateRequest(string recource, Method method)
         {

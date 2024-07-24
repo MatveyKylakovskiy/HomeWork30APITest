@@ -1,5 +1,6 @@
 using HomeWork30APITest.ApiTests.ApiMethotds;
 using HomeWork30APITest.ApiTests.ReqresAPI.Models.Response;
+using HomeWork30APITest.ApiTests.ReqresAPIModels.Builders;
 using HomeWork30APITest.ApiTests.ReqresAPIModels.Models.Response;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -122,6 +123,106 @@ namespace HomeWork30APITest.ApiTests.Tests
 
             //Проверка статуса ответа
             Assert.That(statusCode, Is.EqualTo(404), "status code is not 404");
+        }
+
+        [Test]
+        [DisplayName("CREATE User")]
+        public void PostMethodTest7()
+        {
+            var jsonReq = new UserBuilder()
+                .Name("morpheus")
+                .Job("leader")
+                .Build();
+
+            var postMethodObj = new MethodPOST();
+            postMethodObj.SendPostMethod("users", client, jsonReq);
+
+            var statusCode = postMethodObj.ReturnStatusCode();
+
+            CreateUserModel singleUser = postMethodObj.ReturnJsonContent<CreateUserModel>();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(201), "status code is not 201");
+
+            Assert.That(singleUser.Name, Is.EqualTo("morpheus"));
+            Assert.That(singleUser.Job, Is.EqualTo("leader"));
+            Assert.That(singleUser.CreatedAt, Is.EqualTo(DateTime.UtcNow).Within(TimeSpan.FromSeconds(2)));
+        }
+
+        [Test]
+        [DisplayName("Update User Put")]
+        public void PutMethodTest8()
+        {
+            var jsonReq = new UserBuilder()
+                .Name("morpheus")
+                .Job("zion resident")
+                .Build();
+
+            var putMethodObj = new MethodPUT();
+            putMethodObj.SendPutMethod("users/2", client, jsonReq);
+
+            var statusCode = putMethodObj.ReturnStatusCode();
+
+            CreateUserModel singleUser = putMethodObj.ReturnJsonContent<CreateUserModel>();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(200), "status code is not 200");
+
+            Assert.That(singleUser.Name, Is.EqualTo("morpheus"));
+            Assert.That(singleUser.Job, Is.EqualTo("zion resident"));
+            Assert.That(singleUser.UpdatedAt, Is.EqualTo(DateTime.UtcNow).Within(TimeSpan.FromSeconds(2)));
+        }
+
+        [Test]
+        [DisplayName("Update User Path")]
+        public void PathMethodTest9()
+        {
+            var jsonReq = new UserBuilder()
+                .Name("morpheus")
+                .Job("zion resident")
+                .Build();
+
+            var pathMethodObj = new MethodPATCH();
+            pathMethodObj.SendPatchMethod("users/2", client, jsonReq);
+
+            var statusCode = pathMethodObj.ReturnStatusCode();
+
+            CreateUserModel singleUser = pathMethodObj.ReturnJsonContent<CreateUserModel>();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(200), "status code is not 200");
+
+            Assert.That(singleUser.Name, Is.EqualTo("morpheus"));
+            Assert.That(singleUser.Job, Is.EqualTo("zion resident"));
+            Assert.That(singleUser.UpdatedAt, Is.EqualTo(DateTime.UtcNow).Within(TimeSpan.FromSeconds(2)));
+        }
+
+        [Test]
+        [DisplayName("Delete user")]
+        public void DeleteMethodTest10()
+        {
+           
+            var deleteMethodObj = new MethodDELETE();
+            deleteMethodObj.SendDeleteMethod("users/2", client);
+
+            var statusCode = deleteMethodObj.ReturnStatusCode();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(204), "status code is not 204");
+        }
+
+        [Test]
+        [DisplayName("Delete user")]
+        public void DeleteMethodTest10()
+        {
+
+            var deleteMethodObj = new MethodDELETE();
+            deleteMethodObj.SendDeleteMethod("users/2", client);
+
+            var statusCode = deleteMethodObj.ReturnStatusCode();
+
+            //Проверка статуса ответа
+            Assert.That(statusCode, Is.EqualTo(204), "status code is not 204");
         }
     }
 }
