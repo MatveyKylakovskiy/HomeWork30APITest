@@ -23,9 +23,4 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ApiTests\ReqresAPIModels\Builders\" />
-    <Folder Include="ApiTests\ReqresAPIModels\Models\Request\" />
-  </ItemGroup>
-
 </Project>

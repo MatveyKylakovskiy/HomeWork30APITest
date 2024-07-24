@@ -1,14 +1,12 @@
-﻿using HomeWork30APITest.ApiTests.ReqresAPI.Models.Response;
-using HomeWork30APITest.ApiTests.ReqresAPIModels.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RestSharp;
 
 namespace HomeWork30APITest.ApiTests.ApiMethotds
 {
     public abstract class BaseMethod
     {
-        private static RestRequest _request;
-        private static RestResponse _response;
+        public  RestRequest _request;
+        public  RestResponse _response;
 
         private protected BaseMethod CreateRequest(string recource, Method method)
         {
